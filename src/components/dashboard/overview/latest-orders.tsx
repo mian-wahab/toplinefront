@@ -24,9 +24,12 @@ const statusMap = {
 export interface Order {
   id: string;
   customer: { name: string };
+  customercompany: { companyname: string };
   amount: number;
   status: 'pending' | 'delivered' | 'refunded';
+  logs: string;
   createdAt: Date;
+  action: string;
 }
 
 export interface LatestOrdersProps {
@@ -43,10 +46,12 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
         <Table sx={{ minWidth: 800 }}>
           <TableHead>
             <TableRow>
-              <TableCell>Order</TableCell>
-              <TableCell>Customer</TableCell>
+              <TableCell>Full Name</TableCell>
+              <TableCell>Company Name</TableCell>
               <TableCell sortDirection="desc">Date</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Job Status</TableCell>
+              <TableCell>Logs</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -55,12 +60,14 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
 
               return (
                 <TableRow hover key={order.id}>
-                  <TableCell>{order.id}</TableCell>
+                  <TableCell>{order.customer.name}</TableCell>
                   <TableCell>{order.customer.name}</TableCell>
                   <TableCell>{dayjs(order.createdAt).format('MMM D, YYYY')}</TableCell>
                   <TableCell>
                     <Chip color={color} label={label} size="small" />
                   </TableCell>
+                  <TableCell>{order.logs}</TableCell>
+                  <TableCell>{order.action}</TableCell>
                 </TableRow>
               );
             })}

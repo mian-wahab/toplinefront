@@ -16,7 +16,7 @@ import type { ApexOptions } from 'apexcharts';
 
 import { Chart } from '@/components/core/chart';
 
-const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
+// const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
 
 export interface TrafficProps {
   chartSeries: number[];
@@ -29,25 +29,39 @@ export function Traffic({ chartSeries, labels, sx }: TrafficProps): React.JSX.El
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic source" />
+      <CardHeader title="Status" />
       <CardContent>
         <Stack spacing={2}>
           <Chart height={300} options={chartOptions} series={chartSeries} type="donut" width="100%" />
           <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-            {chartSeries.map((item, index) => {
-              const label = labels[index];
-              const Icon = iconMapping[label];
+            {/* {chartSeries.map((item, index) => {
+              const label = labels[index]; */}
+              {/* // const Icon = iconMapping[label]; */}
 
-              return (
-                <Stack key={label} spacing={1} sx={{ alignItems: 'center' }}>
-                  {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null}
-                  <Typography variant="h6">{label}</Typography>
+             
+                <Stack spacing={1} sx={{ alignItems: 'center' }}>
+                  {/* {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null} */}
+                  <Typography variant="h6">Succesful Jobs</Typography>
                   <Typography color="text.secondary" variant="subtitle2">
-                    {item}%
+                    75 %
                   </Typography>
                 </Stack>
-              );
-            })}
+                <Stack spacing={1} sx={{ alignItems: 'center' }}>
+                  {/* {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null} */}
+                  <Typography variant="h6">Failed Jobs</Typography>
+                  <Typography color="text.secondary" variant="subtitle2">
+                    15 %
+                  </Typography>
+                </Stack>
+                <Stack spacing={1} sx={{ alignItems: 'center' }}>
+                  {/* {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null} */}
+                  <Typography variant="h6">Pending Jobs</Typography>
+                  <Typography color="text.secondary" variant="subtitle2">
+                    10 %
+                  </Typography>
+                </Stack>
+             
+            {/* })} */}
           </Stack>
         </Stack>
       </CardContent>

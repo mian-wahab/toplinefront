@@ -31,17 +31,17 @@ export function Sales({ chartSeries, sx }: SalesProps): React.JSX.Element {
             Sync
           </Button>
         }
-        title="Sales"
+        title="FTP Successful Connections"
       />
       <CardContent>
         <Chart height={350} options={chartOptions} series={chartSeries} type="bar" width="100%" />
       </CardContent>
-      <Divider />
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
+      {/* <Divider /> */}
+      {/* <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button color="inherit" endIcon={<ArrowRightIcon fontSize="var(--icon-fontSize-md)" />} size="small">
           Overview
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }
