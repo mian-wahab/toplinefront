@@ -26,7 +26,9 @@ export function VendorDetailsForm({ onTrigger }: VendorDetailsFormProps): React.
       firstName: formData.get('firstName'),
       lastName: formData.get('lastName'),
       email: formData.get('email'),
-      userName: formData.get('userName')
+      companyName: formData.get('companyName'),
+      companyAddress: formData.get('companyAddress'),
+      contactNumber: formData.get('contactNumber'),
     };
 
     await createVendor(payload);

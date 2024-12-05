@@ -25,11 +25,14 @@ interface FTPServerProps {
 }
 
 const VALUES = {
-  userName: '',
+  firstName: '',
+  lastName: '',
+  contactNumber: '',
   email: '',
-  fullName: '',
+  companyName: '',
+  companyAddress: '',
   ftps: [
-    { host: '', ftpUser: '', password: '' },
+    { host: '', ftpUser: '', password: '', path: ''},
   ],
 };
 
@@ -104,6 +107,24 @@ const FTPServer = ({ control, index, errors }: FTPServerProps) => {
               )}
             />
           </Grid>
+          <Grid md={6} xs={12}>
+            <Controller
+              name={`ftps[${index}].path`}
+              control={control}
+              rules={{ required: 'Path is required' }}
+              render={({ field }) => (
+                <FormControl fullWidth error={!!errors?.ftps?.[index]?.path}>
+                  <TextField
+                    {...field}
+                    label="Path"
+                    variant="outlined"
+                    error={!!errors?.ftps?.[index]?.path}
+                    helperText={errors?.ftps?.[index]?.path?.message}
+                  />
+                </FormControl>
+              )}
+            />
+          </Grid>
         </Grid>
       </CardContent>
     </>
@@ -121,9 +142,11 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
   const [userToSet, setUserToSet] = React.useState<string>('')
   const { control, handleSubmit, setValue, watch, formState: { errors } } = useForm({
     defaultValues: editVendor?._id ? {
-      userName: editVendor.userName as string,
+      firstName: editVendor.firstName as string,
       email: editVendor.email as string,
-      fullName: editVendor.fullName as string,
+      companyName: editVendor.companyName as string,
+      companyAddress: editVendor.companyAddress as string,
+      contactNumber: editVendor.contactNumber as string,
       ftps: editVendor.ftps as [{}],
     } : VALUES
   });
@@ -158,16 +181,19 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
   };
 
   const handleAddMoreFTP = () => {
-    append({ host: '', ftpUser: '', password: '' });
+    append({ host: '', ftpUser: '', password: '', path: "" });
   };
 
   const vendorData = vendors?.length > 1 ? vendors?.map(x => {
     return {
-      label: x?.fullName,
+      label: x?.firstName,
       value: {
-        email: x?._id,
-        fullName: x?.fullName,
-        userName: x?.userName,
+        email: x?.email,
+        firstName: x?.firstName,
+        lastName: x?.lastName,
+        contactNumber: x?.contactNumber,
+        companyName: x?.companyName,
+        companyAddress: x?.companyAddress,
         _id: x?._id
       }
     }
@@ -175,8 +201,11 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
 
   const handleUserChange = (e: any) => {
     setValue('email', e?.value?.email);
-    setValue('fullName', e?.value?.fullName);
-    setValue('userName', e?.value?.userName);
+    setValue('firstName', e?.value?.firstName);
+    setValue('lastName', e?.value?.lastName);
+    setValue('lastName', e?.value?.contactNumber);
+    setValue('lastName', e?.value?.companyName);
+    setValue('lastName', e?.value?.companyAddress);
     setUserToSet(e?.value?._id)
   }
 
@@ -224,18 +253,54 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
               <Grid container spacing={3}>
                 <Grid md={6} xs={12}>
                   <Controller
-                    name="userName"
+                    name="firstName"
                     control={control}
-                    rules={{ required: 'User Name is required' }}
+                    rules={{ required: 'First Name is required' }}
                     render={({ field }) => (
-                      <FormControl fullWidth error={!!errors.userName}>
-                        <InputLabel>User Name</InputLabel>
+                      <FormControl fullWidth error={!!errors.firstName}>
+                        <InputLabel>First Name</InputLabel>
                         <OutlinedInput
                           {...field}
-                          label="User Name"
-                          error={!!errors.userName}
+                          label="First Name"
+                          error={!!errors.firstName}
                         />
-                        <FormHelperText>{errors?.userName?.message}</FormHelperText>
+                        <FormHelperText>{errors?.firstName?.message}</FormHelperText>
+                      </FormControl>
+                    )}
+                  />
+                </Grid>
+                <Grid md={6} xs={12}>
+                  <Controller
+                    name="lastName"
+                    control={control}
+                    rules={{ required: 'Last Name is required' }}
+                    render={({ field }) => (
+                      <FormControl fullWidth error={!!errors.lastName}>
+                        <InputLabel>Last Name</InputLabel>
+                        <OutlinedInput
+                          {...field}
+                          label="Last Name"
+                          error={!!errors.lastName}
+                        />
+                        <FormHelperText>{errors.lastName?.message}</FormHelperText>
+                      </FormControl>
+                    )}
+                  />
+                </Grid>
+                <Grid md={6} xs={12}>
+                  <Controller
+                    name="contactNumber"
+                    control={control}
+                    rules={{ required: 'Contact Number is required' }}
+                    render={({ field }) => (
+                      <FormControl fullWidth error={!!errors.contactNumber}>
+                        <InputLabel>Contact Number</InputLabel>
+                        <OutlinedInput
+                          {...field}
+                          label="Contact Number"
+                          error={!!errors.contactNumber}
+                        />
+                        <FormHelperText>{errors?.contactNumber?.message}</FormHelperText>
                       </FormControl>
                     )}
                   />
@@ -253,30 +318,48 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
                           label="Email"
                           error={!!errors.email}
                         />
-                        <FormHelperText>{errors.email?.message}</FormHelperText>
+                        <FormHelperText>{errors.email?.message || null}</FormHelperText>
                       </FormControl>
                     )}
                   />
                 </Grid>
-
                 <Grid md={6} xs={12}>
                   <Controller
-                    name="fullName"
+                    name="companyName"
                     control={control}
-                    rules={{ required: 'Full Name is required' }}
+                    rules={{ required: 'Company Name is required' }}
                     render={({ field }) => (
-                      <FormControl fullWidth error={!!errors.fullName}>
-                        <InputLabel>Full Name</InputLabel>
+                      <FormControl fullWidth error={!!errors.companyName}>
+                        <InputLabel>Company Name</InputLabel>
                         <OutlinedInput
                           {...field}
                           label="Full Name"
-                          error={!!errors.fullName}
+                          error={!!errors.companyName}
                         />
-                        <FormHelperText>{errors.fullName?.message || null}</FormHelperText>
+                        <FormHelperText>{errors.companyName?.message || null}</FormHelperText>
                       </FormControl>
                     )}
                   />
                 </Grid>
+                <Grid md={6} xs={12}>
+                  <Controller
+                    name="companyAddress"
+                    control={control}
+                    rules={{ required: 'Company Address is required' }}
+                    render={({ field }) => (
+                      <FormControl fullWidth error={!!errors.companyAddress}>
+                        <InputLabel>Company Address</InputLabel>
+                        <OutlinedInput
+                          {...field}
+                          label="Company Address"
+                          error={!!errors.companyAddress}
+                        />
+                        <FormHelperText>{errors.companyAddress?.message || null}</FormHelperText>
+                      </FormControl>
+                    )}
+                  />
+                </Grid>
+              
               </Grid>
             </CardContent>
             <Divider />

@@ -107,7 +107,7 @@ export default function Page(): React.JSX.Element {
     setInprogress(false);
   }
   const filteredVendors = vendors?.filter((vendor) => {
-    return vendor?.fullName?.toLowerCase()?.includes(keyword) || vendor?.email?.toLowerCase()?.includes(keyword) || vendor?.userName?.toLowerCase()?.includes(keyword);
+    return vendor?.firstName?.toLowerCase()?.includes(keyword) || vendor?.email?.toLowerCase()?.includes(keyword) || vendor?.companyName?.toLowerCase()?.includes(keyword);
   });
   return (
     <Stack spacing={3}>

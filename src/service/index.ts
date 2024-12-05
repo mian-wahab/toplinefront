@@ -1,7 +1,7 @@
 import { User } from "@/types/user";
 import { del, get, post, put } from "./axiosWrapper";
 import { routes } from "./routes";
-import { SignInWithPasswordParams } from "@/lib/auth/client";
+import { SignInWithPasswordParams } from "@/lib/auth/client"; 
 
 export const Login = async (data: SignInWithPasswordParams) => {
     const user = await post(routes.auth.signIn, data);

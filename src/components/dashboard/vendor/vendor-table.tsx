@@ -14,9 +14,12 @@ import { getAllVendor } from '@/service/vendor/getAllVendor';
 
 interface Vendor {
     _id: string;
-    userName: string;
+    firstName: string;
+    lastName:string;
+    contactNumber:boolean;
     email: string;
-    fullName: string;
+    companyName: string;
+    companyAddress: string;
     role: string;
 }
 
@@ -52,18 +55,24 @@ const VendorTable: React.FC<VendorTableProps> = ({ trigger }) => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>User Name</TableCell>
+                        <TableCell>First Name</TableCell>
+                        <TableCell>Last Name</TableCell>
+                        <TableCell>Contact Number</TableCell>
                         <TableCell>Email</TableCell>
-                        <TableCell>Full Name</TableCell>
+                        <TableCell>Company Name</TableCell>
+                        <TableCell>Company Address</TableCell>
                         <TableCell>Role</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {vendors.map((vendor) => (
                         <TableRow key={vendor._id}>
-                            <TableCell>{vendor.userName}</TableCell>
+                            <TableCell>{vendor.firstName}</TableCell>
+                            <TableCell>{vendor.lastName}</TableCell>
+                            <TableCell>{vendor.contactNumber}</TableCell>
                             <TableCell>{vendor.email}</TableCell>
-                            <TableCell>{vendor.fullName}</TableCell>
+                            <TableCell>{vendor.companyName}</TableCell>
+                            <TableCell>{vendor.companyAddress}</TableCell>
                             <TableCell>{vendor.role}</TableCell>
                         </TableRow>
                     ))}

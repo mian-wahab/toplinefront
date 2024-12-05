@@ -172,9 +172,12 @@ function noop(): void {
 export interface Vendor {
   _id: string;
   id: string;
-  fullName: string;
-  userName: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  companyName: string;
+  companyAddress: string;
+  contactNumber: boolean;
   ftps: any[];
   createdAt: string;
   isActive: boolean;
@@ -193,7 +196,7 @@ interface VendorsTableProps {
 }
 
 export function VendorsTable({
-  count = 0,
+  count = 0, 
   rows = [],
   page = 0,
   rowsPerPage = 0,
@@ -228,10 +231,10 @@ export function VendorsTable({
                 <TableRow hover key={row.id} selected={isSelected}>
                   <TableCell>
                     <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      <Typography variant="subtitle2">{row.fullName}</Typography>
+                      <Typography variant="subtitle2">{row.firstName}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row.userName}</TableCell>
+                  <TableCell>{row.firstName}</TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell>{row.ftps?.length}</TableCell>
                   <TableCell>{row.createdAt}</TableCell>

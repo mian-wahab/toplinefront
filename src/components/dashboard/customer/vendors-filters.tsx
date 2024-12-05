@@ -5,7 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { MagnifyingGlass as MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
 interface VendorsFiltersProps {
   setKeyword: (keyword: string) => void;
-}
+} 
 export function VendorsFilters({ setKeyword }: VendorsFiltersProps): React.JSX.Element {
   return (
     <Card sx={{ p: 2 }}>
