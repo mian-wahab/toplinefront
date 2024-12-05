@@ -26,12 +26,16 @@ interface Vendor {
   userName: string;
   email: string;
   createdAt: string;
+  status: string;
+  logs: string;
 }
 export interface ConvertedFile {
   _id: string;
   filePath: string;
   conversionType: string;
   vendor: Vendor;
+  status: Vendor;
+  logs: Vendor;
   createdBy: Vendor;
   createdAt: string;
 }
@@ -70,11 +74,13 @@ export function FileConversionTable({
         <Table sx={{ minWidth: '800px' }}>
           <TableHead>
             <TableRow>
-              <TableCell>Type</TableCell>
-              <TableCell>Vendor</TableCell>
+              <TableCell>Full Name</TableCell>
+              <TableCell>Company Name</TableCell>
               <TableCell>Converted By</TableCell>
               <TableCell>Date</TableCell>
+              <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
+              <TableCell>Logs</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -90,6 +96,7 @@ export function FileConversionTable({
                   <TableCell>{row?.vendor ? row?.vendor?.fullName : <span>NA</span>}</TableCell>
                   <TableCell>{row?.createdBy?.fullName}</TableCell>
                   <TableCell>{row.createdAt}</TableCell>
+                  <TableCell>{row?.vendor?.status}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Avatar sx={{ cursor: 'pointer', background: '#4E36F5' }}> <a style= {{
@@ -100,6 +107,7 @@ export function FileConversionTable({
                       }} href={process?.env?.NEXT_PUBLIC_DOWNLOAD_CONVERTED_URL_LOCAL + "/" + row?.filePath} target='_blank'><CloudDownloadIcon /></a> </Avatar>
                     </Stack>
                   </TableCell>
+                  <TableCell>{row?.vendor?.logs}</TableCell>
                 </TableRow>
               );
             })}

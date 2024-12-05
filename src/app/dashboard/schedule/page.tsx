@@ -100,23 +100,29 @@ export default function Page(): React.JSX.Element {
 
   return (
     <Stack spacing={3}>
-      <Typography variant="h4">FTP Schedule</Typography>
+      <Typography variant="h4">Matrix</Typography>
 
       {/* FTP Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>FTP Host</TableCell>
-              <TableCell>FTP User</TableCell>
+              <TableCell> Full Name</TableCell>
+              <TableCell>  Company name</TableCell>
+              <TableCell>Host</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Logs</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedFtps.map((ftp) => (
               <TableRow key={ftp._id}>
-                <TableCell>{ftp.host}</TableCell>
                 <TableCell>{ftp.ftpUser}</TableCell>
+                <TableCell>{ftp.user?.companyName}</TableCell>
+                <TableCell>{ftp.host}</TableCell>
+                <TableCell></TableCell>
+                
                 <TableCell>
                   <Button variant="contained" color="primary" onClick={() => handleCreateCron(ftp)}>
                     Create Cron Job
@@ -146,7 +152,7 @@ export default function Page(): React.JSX.Element {
           {/* Date selection */}
           <TextField
             fullWidth
-            label="Select Date"
+            label=""
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}

@@ -22,17 +22,23 @@ function noop(): void {
 }
 interface Vendor {
   _id: string;
-  fullName: string;
-  userName: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  companyName: string;
+  companyAddress: string;
+  contactNumber: string;
   createdAt: string;
+
 }
 export interface Ftp {
   _id: string;
   host: string;
   ftpUser: string;
   password: string;
+  path: string;
   user: Vendor;
+  companyname: Vendor;
   createdAt: string;
 }
 
@@ -82,6 +88,7 @@ export function FtpTables({
         host: data?._id,
         password: data?.host,
         ftpUser: data?.ftpUser,
+        path: data?.path,
       }
     }
     setVendorsToShow([]);
@@ -119,7 +126,7 @@ export function FtpTables({
                   <TableCell>
                     {row.password}
                   </TableCell>
-                  <TableCell>{row.user?.fullName}</TableCell>
+                  <TableCell>{row.user?.firstName}</TableCell>
                   <TableCell>{row.createdAt}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>

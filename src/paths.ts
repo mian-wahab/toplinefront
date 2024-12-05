@@ -9,9 +9,9 @@ export const paths = {
     logout: '/dashboard/logout',
     schedule: '/dashboard/schedule',
     convert: '/dashboard/convert',
-    // integrations: '/ dashboard/integrations',
+    integrations: '/ dashboard/integrations',
     settings: '/dashboard/settings',
-    // vendor: '/dashboard/vendor',
+    vendor: '/dashboard/vendor',
   },
   errors: { notFound: '/errors/not-found' },
 } as const;

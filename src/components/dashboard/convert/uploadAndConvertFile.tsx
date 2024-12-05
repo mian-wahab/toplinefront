@@ -105,11 +105,12 @@ const UploadAndConvertFile = () => {
                 {inprogress && <CircularIndeterminate />}
                 <Stack direction="row" spacing={3}>
                     <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
-                        <Typography variant="h4">Ftps</Typography>
+                        <Typography variant="h4">Manual Import</Typography>
                     </Stack>
                 </Stack>
                 <Card>
                     <Box sx={{ padding: '22px' }}>
+                        {/* choose member required */}
                         <h3>Upload and Convert File</h3>
                         <form onSubmit={handleUpload}>
                             <Button

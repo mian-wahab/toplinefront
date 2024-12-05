@@ -77,7 +77,7 @@ export default function Page(): React.JSX.Element {
   }, []);
 
   const filteredFtps = ftps?.filter((ftp) => {
-    return ftp?.host?.toLowerCase()?.includes(keyword) || ftp?.user?.fullName?.toLowerCase()?.includes(keyword) || ftp?.ftpUser?.toLowerCase()?.includes(keyword);
+    return ftp?.host?.toLowerCase()?.includes(keyword) || ftp?.user?.firstName?.toLowerCase()?.includes(keyword) || ftp?.ftpUser?.toLowerCase()?.includes(keyword);
   });
   const handleDelete = async (id: string) => {
     setInprogress(true);
