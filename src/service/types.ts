@@ -1,22 +1,10 @@
-export interface APIResponse {
-    status:boolean;
-    data: {} | [] | null | OnlyData;
+export interface APIResponse<T = any> {
+    status: number;
+    data: T;
     message: string;
-    statusText: {};
+    statusText: string;
 }
-
-interface OnlyData {
+  interface OnlyData {
     data: {} | [] | null;
-}
-// export interface APIResponse<T = any> {
-//     status: number;
-//     data: T;
-//     message: string;
-//     statusText: string;
-// }
-  
-//   // Define OnlyData if necessary for specific cases
-//   interface OnlyData {
-//     data: {} | [] | null;
-//   }
+  }
   
