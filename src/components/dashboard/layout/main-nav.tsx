@@ -22,19 +22,19 @@ export function MainNav(): React.JSX.Element {
   const { toast } = useUser();
   const [openNav, setOpenNav] = React.useState<boolean>(false);
 
-  const userPopover = usePopover<HTMLDivElement>();
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    toast.setToast({ isOpen: false, message: null, type: toast.toast.type });
-  };
+  // const userPopover = usePopover<HTMLDivElement>();
+  // const handleClose = (
+  //   event?: React.SyntheticEvent | Event,
+  //   reason?: SnackbarCloseReason,
+  // ) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //   toast.setToast({ isOpen: false, message: null, type: toast.toast.type });
+  // };
   return (
     <React.Fragment>
-      <Snackbar open={toast.toast.isOpen} autoHideDuration={6000} onClose={handleClose}>
+      {/* <Snackbar open={toast.toast.isOpen} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity={toast.toast.type}
@@ -43,7 +43,7 @@ export function MainNav(): React.JSX.Element {
         >
           {toast.toast.message}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
       <Box
         component="header"
         sx={{
@@ -75,7 +75,7 @@ export function MainNav(): React.JSX.Element {
             </Tooltip>
           </Stack>
           <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-            <Tooltip title="Contacts">
+            {/* <Tooltip title="Contacts">
               <IconButton>
                 <UsersIcon />
               </IconButton>
@@ -86,17 +86,17 @@ export function MainNav(): React.JSX.Element {
                   <BellIcon />
                 </IconButton>
               </Badge>
-            </Tooltip>
-            <Avatar
+            </Tooltip> */}
+            {/* <Avatar
               onClick={userPopover.handleOpen}
               ref={userPopover.anchorRef}
               src="/assets/avatar.png"
               sx={{ cursor: 'pointer' }}
-            />
+            /> */}
           </Stack>
         </Stack>
       </Box>
-      <UserPopover anchorEl={userPopover.anchorRef.current} onClose={userPopover.handleClose} open={userPopover.open} />
+      {/* <UserPopover anchorEl={userPopover.anchorRef.current} onClose={userPopover.handleClose} open={userPopover.open} /> */}
       <MobileNav
         onClose={() => {
           setOpenNav(false);
