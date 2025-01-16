@@ -137,7 +137,7 @@ interface VendorManagementProps {
 
 export function VendorManagement({ editVendor = null, action }: VendorManagementProps): React.JSX.Element {
   const { control, handleSubmit, watch, formState: { errors } } = useForm({
-    defaultValues: editVendor?._id ? {
+    defaultValues: editVendor?.email ? {
       firstName: editVendor.firstName as string,
       email: editVendor.email as string,
       lastName: editVendor.lastName as string,
@@ -150,15 +150,15 @@ export function VendorManagement({ editVendor = null, action }: VendorManagement
   const { toast } = useUser();
   let vendor: any;
   const onSubmit = async (data: any) => {
-    if (editVendor?._id) {
-      vendor = await UpdateVendor(editVendor?._id, data);
+    if (editVendor?.email) {
+      vendor = await UpdateVendor(editVendor?.email, data);
     } else {
       vendor = await AddVendor(data);
     }
     if (vendor?.error) {
       toast.setToast({ isOpen: true, message: vendor.error, type: ToastType.ERROR });
     } else {
-      toast.setToast({ isOpen: true, message: editVendor?._id ? 'Vendor Updated Successfully' : 'Vendor Added Successfully', type: ToastType.SUCCESS });
+      toast.setToast({ isOpen: true, message: editVendor?.email ? 'Vendor Updated Successfully' : 'Vendor Added Successfully', type: ToastType.SUCCESS });
       // action();
     }
   };
@@ -170,7 +170,7 @@ export function VendorManagement({ editVendor = null, action }: VendorManagement
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card>
-        <CardHeader subheader="The information can be editable" title={editVendor?._id ? 'Update Member' : 'Add New Member'} />
+        <CardHeader subheader="The information can be editable" title={editVendor?.email ? 'Update Member' : 'Add New Member'} />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
@@ -299,7 +299,7 @@ export function VendorManagement({ editVendor = null, action }: VendorManagement
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained">{editVendor?._id ? 'Update Member' : 'Add Member'}</Button>
+          <Button type="submit" variant="contained">{editVendor?.email ? 'Update Member' : 'Add Member'}</Button>
         </CardActions>
       </Card>
     </form>

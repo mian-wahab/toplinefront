@@ -1,3 +1,5 @@
+
+
 export const routes = {
     auth: {
         signIn: '/auth/login',
@@ -21,11 +23,15 @@ export const routes = {
         convert: {
             uploadAndConvertFile: '/convert/uploadAndConvertFile',
             getAllConvertedFiles: '/convert/getAll',
+            getAllConvertedFilesLogs: '/convert/getAllVendorFiles',
 
         },
         schedule:{
             createCronJob:'/cron/create',
             statusText: 'status',
+        },
+        logs:{
+            getAllFileLogs:'/logs/logs',
         }
 
     },

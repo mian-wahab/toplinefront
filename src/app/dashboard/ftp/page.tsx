@@ -79,9 +79,9 @@ export default function Page(): React.JSX.Element {
   const filteredFtps = ftps?.filter((ftp) => {
     return ftp?.host?.toLowerCase()?.includes(keyword) || ftp?.user?.firstName?.toLowerCase()?.includes(keyword) || ftp?.ftpUser?.toLowerCase()?.includes(keyword);
   });
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (email: string) => {
     setInprogress(true);
-    const ftp = await DeleteFtp(id);
+    const ftp = await DeleteFtp(email);
     if (ftp?.error) {
       setInprogress(false);
       return toast.setToast({ isOpen: true, message: ftp.error, type: ToastType.ERROR });

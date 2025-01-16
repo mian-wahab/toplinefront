@@ -1,11 +1,11 @@
 export interface User {
-  id: string;
-  firstName?: string;
+  firstName: string;
   avatar?: string;
-  email?: string;
-  lastName?: string;
-  contactNumber?: boolean;
-  companyName?: string;
-  companyAddress?: string;
+  email: string;
+  lastName: string;
+  contactNumber: number;
+  companyName: string;
+  companyAddress: string;
   [key: string]: unknown;
+  status:string;
 }

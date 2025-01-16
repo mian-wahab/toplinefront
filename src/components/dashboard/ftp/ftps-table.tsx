@@ -21,7 +21,6 @@ function noop(): void {
   // do nothing
 }
 interface Vendor {
-  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -32,13 +31,15 @@ interface Vendor {
 
 }
 export interface Ftp {
+  user: any;
   _id: string;
   host: string;
   ftpUser: string;
   password: string;
   path: string;
-  user: Vendor;
-  companyname: Vendor;
+  firstName: Vendor;
+  lastName:Vendor;
+  companyName: Vendor;
   createdAt: string;
 }
 
@@ -51,7 +52,7 @@ interface VendorsTableProps {
   setIsOpen: (open: boolean) => void;
   setEditFtpData: (data: any) => void;
   setVendorsToShow: (data: any) => void;
-  handleDelete: (id: string) => Promise<void>;
+  handleDelete: (email: string) => Promise<void>;
 }
 
 export function FtpTables({
@@ -81,14 +82,17 @@ export function FtpTables({
   const handleEditFtp = (data: any) => {
     setIsOpen(true);
     const dataToSend = {
-      fullName: data?.user?.fullName,
+      firstName: data?.user.firstName,
+      lastName: data?.user.lastName,
+      companyName: data?.user.companyName,
       userId: data?.user?._id,
       ftp: {
         _id:data?._id,
-        host: data?._id,
-        password: data?.host,
+        host: data?.host,
+        password: data?.password,
         ftpUser: data?.ftpUser,
         path: data?.path,
+        user: data?.user,
       }
     }
     setVendorsToShow([]);

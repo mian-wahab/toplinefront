@@ -82,8 +82,8 @@ export interface Selection<T = string> {
   deselectOne: (key: T) => void;
   selectAll: () => void;
   selectOne: (key: T) => void;
-  handleDisable: (key: T) => Promise<void>;
-  handleActivate: (key: T) => Promise<void>;
+  // handleDisable: (key: T) => Promise<void>;
+  // handleActivate: (key: T) => Promise<void>;
   selected: Set<T>;
   selectedAny: boolean;
   selectedAll: boolean;
@@ -109,23 +109,23 @@ export function useSelection<T = string>(keys: T[] = []): Selection<T> {
     });
   }, []);
 
-  const handleDisable = React.useCallback(async (id: T) => {
-    try {
-      // API call or logic to disable the user
-      console.log(`User with ID ${id} disabled.`);
-    } catch (error) {
-      console.error("Error disabling user:", error);
-    }
-  }, []);
+  // const handleDisable = React.useCallback(async (id: T) => {
+  //   try {
+  //     // API call or logic to disable the user
+  //     console.log(`User with ID ${id} disabled.`);
+  //   } catch (error) {
+  //     console.error("Error disabling user:", error);
+  //   }
+  // }, []);
 
-  const handleActivate = React.useCallback(async (id: T) => {
-    try {
-      // API call or logic to activate the user
-      console.log(`User with ID ${id} activated.`);
-    } catch (error) {
-      console.error("Error activating user:", error);
-    }
-  }, []);
+  // const handleActivate = React.useCallback(async (id: T) => {
+  //   try {
+  //     // API call or logic to activate the user
+  //     console.log(`User with ID ${id} activated.`);
+  //   } catch (error) {
+  //     console.error("Error activating user:", error);
+  //   }
+  // }, []);
 
   const handleSelectAll = React.useCallback(() => {
     setSelected(new Set(keys));
@@ -147,8 +147,8 @@ export function useSelection<T = string>(keys: T[] = []): Selection<T> {
     deselectOne: handleDeselectOne,
     selectAll: handleSelectAll,
     selectOne: handleSelectOne,
-    handleDisable,
-    handleActivate,
+    // handleDisable,
+    // handleActivate,
     selected,
     selectedAny,
     selectedAll,

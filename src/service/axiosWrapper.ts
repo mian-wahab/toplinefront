@@ -75,6 +75,15 @@ const post = async (url: string, data: any, config: AxiosRequestConfig = {}): Pr
         return handleError(error as AxiosError);
     }
 };
+// export const get = async (url: string) => {
+//     try {
+//         const response = await axios.get(url);
+//         return response;
+//     } catch (error) {
+//         console.error('API GET Error:', error);
+//         return { status: false, message: error?.message || 'Unknown error', data: null };
+//     }
+// };
 // const post = async <TData, TResponse>(
 //     url: string,
 //     data: TData,

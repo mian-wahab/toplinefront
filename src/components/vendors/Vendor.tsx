@@ -18,6 +18,8 @@ import { useUser } from '@/hooks/use-user';
 import { ToastType } from '@/contexts/enums';
 import CloseIcon from '@mui/icons-material/Close';
 import { Vendor } from '../dashboard/customer/vendors-table';
+import path from 'path';
+import { margin } from '@mui/system';
 interface FTPServerProps {
   control: any;
   index: number;
@@ -141,9 +143,12 @@ interface VendorManagementProps {
 export function VendorManagement({ editVendor = null, action, vendors = [], editFtpData = null  }: VendorManagementProps): React.JSX.Element {
   const [userToSet, setUserToSet] = React.useState<string>('')
   const { control, handleSubmit, setValue, watch, formState: { errors } } = useForm({
-    defaultValues: editVendor?._id ? {
+    defaultValues: editVendor?.email ? {
       firstName: editVendor.firstName as string,
       email: editVendor.email as string,
+      // fullName: editVendor.firstName as string,
+      // userName: editVendor.lastName as string,
+      lastName: editVendor.lastName as string,
       companyName: editVendor.companyName as string,
       companyAddress: editVendor.companyAddress as string,
       contactNumber: editVendor.contactNumber as string,
@@ -154,8 +159,8 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
   const { toast } = useUser();
   let vendor: any;
   const onSubmit = async (data: any) => {
-    if (editVendor?._id) {
-      vendor = await UpdateVendor(editVendor?._id, data);
+    if (editVendor?.email) {
+      vendor = await UpdateVendor(editVendor?.email, data);
     } else {
       if (userToSet !== '') {
         console.log(data)
@@ -164,6 +169,7 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
           host:previousData?.host,
           ftpUser:previousData?.ftpUser,
           password:previousData?.password,
+          path:previousData?.path,
           user:userToSet
         }
         console.log(dataToAdd)
@@ -175,7 +181,7 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
     if (vendor?.error) {
       toast.setToast({ isOpen: true, message: vendor.error, type: ToastType.ERROR });
     } else {
-      toast.setToast({ isOpen: true, message: editVendor?._id ? 'Vendor Updated Successfully' : (userToSet ? 'Ftp Added / Updated Successfully' : 'Vendor Added Successfully'), type: ToastType.SUCCESS });
+      toast.setToast({ isOpen: true, message: editVendor?.email ? 'Vendor Updated Successfully' : (userToSet ? 'Ftp Added / Updated Successfully' : 'Vendor Added Successfully'), type: ToastType.SUCCESS });
       // action();
     }
   };
@@ -194,7 +200,6 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
         contactNumber: x?.contactNumber,
         companyName: x?.companyName,
         companyAddress: x?.companyAddress,
-        _id: x?._id
       }
     }
   }) : []
@@ -206,13 +211,13 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
     setValue('lastName', e?.value?.contactNumber);
     setValue('lastName', e?.value?.companyName);
     setValue('lastName', e?.value?.companyAddress);
-    setUserToSet(e?.value?._id)
+    setUserToSet(e?.value?.email)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card>
-        <CardHeader subheader="The information can be editable" title={editVendor?._id ? 'Update Member' : (vendors?.length > 0 ? 'Add New Ftp' : 'Add New Member')} />
+        <CardHeader subheader="The information can be editable" title={editVendor?.email ? 'Update Member' : (vendors?.length > 0 ? 'Add New Ftp' : 'Add New Member')} />
         <Divider />
         {vendorData?.length > 0
           &&
@@ -239,7 +244,7 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
           <>
             <CardContent>
               <Grid container spacing={3}>
-               <h3> Edit Ftp For  <b>{editFtpData?.fullName}</b></h3>
+               <h3> Edit Ftp For  <b>{editFtpData?._id}</b></h3>
 
               </Grid>
             </CardContent>
@@ -366,7 +371,7 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
           </>
         }
         {fields.map((field, index) => (
-          <FTPServer key={field.id} control={control} index={index} errors={errors} />
+          <FTPServer key={field.id} control={control} index={index} errors={errors}/>
         ))}
         {errors.ftps && (
           <CardContent>
@@ -377,8 +382,11 @@ export function VendorManagement({ editVendor = null, action, vendors = [], edit
           <Button onClick={handleAddMoreFTP} variant="contained">Add More FTP</Button>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained">{editVendor?._id ? 'Update Member' : (vendors?.length > 0 ? 'Add New Ftp' : 'Add Member')}</Button>
+        <h3 style={{margin: '0px',paddingLeft:'25px'}}> Account Status</h3>
+        <CardActions style={{paddingLeft:'25px'}} sx={{ justifyContent: 'space-between' }}>
+          
+         <Button variant="contained">Active</Button>
+          <Button type="submit" variant="contained">{editVendor?.email ? 'Update Member' : (vendors?.length > 0 ? 'Add New Ftp' : 'Add Member')}</Button>
         </CardActions>
       </Card>
     </form>

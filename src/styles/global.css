@@ -34,14 +34,23 @@ body {
 img.customizedlogo {
   height: auto;
   width: 100%;
+  max-width:450px;
 }
 .mui-19kzrtu {
   padding: 24px;
   background: #603e7b;
 }
+/* .mui-spe44s{
+  padding: 25px;
+  background: #603e7b;
+} */
 .customsingin {
   background: #603e7b;
 }
 .custwel.MuiBox-root.mui-sixesb {
   background: #603e7b;
 } 
+.MuiInputBase-root fieldset {
+  border-color: white;
+  border-width: 1px;
+}

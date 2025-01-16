@@ -15,6 +15,10 @@ const user = {
   firstName: 'Sofia',
   lastName: 'Rivers',
   email: 'sofia@devias.io',
+  contactNumber: 5434543,
+   companyName:"xzxzhj",
+    companyAddress:"cxhckuxz",
+    status:'active'
 } satisfies User;
 
 export interface SignUpParams {

@@ -8,6 +8,8 @@ export const paths = {
     vendors: '/dashboard/vendors',
     logout: '/dashboard/logout',
     schedule: '/dashboard/schedule',
+    logs: '/dashboard/logs/getAllFileLogsin',
+    automatedconvert: '/dashboard/automatedconvert',
     convert: '/dashboard/convert',
     integrations: '/ dashboard/integrations',
     settings: '/dashboard/settings',

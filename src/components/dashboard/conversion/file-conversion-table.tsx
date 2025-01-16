@@ -21,12 +21,24 @@ function noop(): void {
   // do nothing
 }
 interface Vendor {
-  _id: string;
-  fullName: string;
-  userName: string;
+  firstName: string;
+  lastName: string;
+  companyName:string;
+  contactNumber:number;
+  companyAddress:string;
   email: string;
   createdAt: string;
   status: string;
+  logs: string;
+}
+interface Admin {
+  firstName: string;
+  companyName:string;
+  contactNumber:number;
+  companyAddress:string;
+  lastName: string;
+  email: string;
+  createdAt: string;
   logs: string;
 }
 export interface ConvertedFile {
@@ -34,6 +46,7 @@ export interface ConvertedFile {
   filePath: string;
   conversionType: string;
   vendor: Vendor;
+  convertedBy: Admin;
   status: Vendor;
   logs: Vendor;
   createdBy: Vendor;
@@ -44,6 +57,7 @@ interface VendorsTableProps {
   count?: number;
   page?: number;
   rows?: ConvertedFile[];
+  vendor?: Vendor[];
   rowsPerPage?: number;
 }
 
@@ -74,29 +88,29 @@ export function FileConversionTable({
         <Table sx={{ minWidth: '800px' }}>
           <TableHead>
             <TableRow>
-              <TableCell>Full Name</TableCell>
+              <TableCell>User Name</TableCell>
               <TableCell>Company Name</TableCell>
               <TableCell>Converted By</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Action</TableCell>
               <TableCell>Logs</TableCell>
+              {/* <TableCell>Action</TableCell> */}
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows?.map((row) => {
               const isSelected = selected?.has(row._id);
               return (
-                <TableRow hover key={row?._id} selected={isSelected}>
+                <TableRow hover key={row?.filePath} selected={isSelected}>
                   <TableCell>
                     <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      <Typography variant="subtitle2">{row?.conversionType?.toUpperCase()}</Typography>
+                      <Typography variant="subtitle2">{row?.createdBy?.firstName} {row?.createdBy?.lastName}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row?.vendor ? row?.vendor?.fullName : <span>NA</span>}</TableCell>
-                  <TableCell>{row?.createdBy?.fullName}</TableCell>
+                  <TableCell>{row?.createdBy?.companyName}</TableCell>
+                  <TableCell>Admin</TableCell>
                   <TableCell>{row.createdAt}</TableCell>
-                  <TableCell>{row?.vendor?.status}</TableCell>
+                  {/* <TableCell>Active</TableCell> */}
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Avatar sx={{ cursor: 'pointer', background: '#4E36F5' }}> <a style= {{
@@ -107,7 +121,7 @@ export function FileConversionTable({
                       }} href={process?.env?.NEXT_PUBLIC_DOWNLOAD_CONVERTED_URL_LOCAL + "/" + row?.filePath} target='_blank'><CloudDownloadIcon /></a> </Avatar>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row?.vendor?.logs}</TableCell>
+                  <TableCell>Successful</TableCell>
                 </TableRow>
               );
             })}

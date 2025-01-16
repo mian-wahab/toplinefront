@@ -170,17 +170,18 @@ function noop(): void {
 }
 
 export interface Vendor {
-  _id: string;
-  id: string;
   firstName: string;
+  userName:string;
+  fullName:string;
   lastName: string;
   email: string;
   companyName: string;
   companyAddress: string;
-  contactNumber: boolean;
+  contactNumber: string;
   ftps: any[];
   createdAt: string;
   isActive: boolean;
+  status:boolean;
 }
 
 interface VendorsTableProps {
@@ -190,9 +191,9 @@ interface VendorsTableProps {
   rowsPerPage?: number;
   setSelectedRow: (row: any) => void;
   setIsOpen: (open: boolean) => void;
-  handleDelete: (id: string) => Promise<void>;
-  handleActivate: (id: string) => Promise<void>;
-  handleDisable: (id: string) => Promise<void>;
+  handleDelete: (email: string) => Promise<void>;
+  handleActivate: (email: string) => Promise<void>;
+  handleDisable: (email: string) => Promise<void>;
 }
 
 export function VendorsTable({
@@ -206,7 +207,7 @@ export function VendorsTable({
   handleDisable,
   handleActivate,
 }: VendorsTableProps): React.JSX.Element {
-  const rowIds = React.useMemo(() => rows.map((vendor) => vendor.id), [rows]);
+  const rowIds = React.useMemo(() => rows.map((vendor) => vendor.email), [rows]);
   const { selected } = useSelection(rowIds);
 
   return (
@@ -215,28 +216,28 @@ export function VendorsTable({
         <Table sx={{ minWidth: '800px' }}>
           <TableHead>
             <TableRow>
-              <TableCell>Full Name</TableCell>
+              <TableCell>User Name</TableCell>
               <TableCell>Company Name</TableCell>
               <TableCell>Email Address</TableCell>
-              <TableCell>Total FTP</TableCell>
+              {/* <TableCell>Total FTP</TableCell> */}
               <TableCell>Creation Date</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => {
-              const isSelected = selected?.has(row.id);
+              const isSelected = selected?.has(row.email);
 
               return (
-                <TableRow hover key={row.id} selected={isSelected}>
+                <TableRow hover key={row.email} selected={isSelected}>
                   <TableCell>
                     <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
                       <Typography variant="subtitle2">{row.firstName}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row.firstName}</TableCell>
+                  <TableCell>{row.companyName}</TableCell>
                   <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.ftps?.length}</TableCell>
+                  {/* <TableCell>{row.ftps?.length}</TableCell> */}
                   <TableCell>{row.createdAt}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
@@ -250,19 +251,19 @@ export function VendorsTable({
                         <DrawIcon />
                       </Avatar>
                       <Avatar
-                        onClick={() => handleDelete(row._id)}
+                        onClick={() => handleDelete(row.email)}
                         sx={{ cursor: 'pointer', background: '#ff0e0e' }}
                       >
                         <DeleteForeverIcon />
                       </Avatar>
                       <Avatar
-                        onClick={() => handleActivate(row._id)}
+                        onClick={() => handleActivate(row.email)}
                         sx={{ cursor: 'pointer', background: '#4caf50' }}
                       >
                         <CheckCircleIcon />
                       </Avatar>
                       <Avatar
-                        onClick={() => handleDisable(row._id)}
+                        onClick={() => handleDisable(row.email)}
                         sx={{ cursor: 'pointer', background: '#ff9800' }}
                       >
                         <BlockIcon />

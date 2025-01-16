@@ -13,7 +13,7 @@ import {
 import { getAllVendor } from '@/service/vendor/getAllVendor';
 
 interface Vendor {
-    _id: string;
+    id:string;
     firstName: string;
     lastName:string;
     contactNumber:boolean;
@@ -24,6 +24,7 @@ interface Vendor {
 }
 
 interface VendorTableProps {
+    vendors: Vendor[];
     trigger: boolean;
 }
 
@@ -66,7 +67,7 @@ const VendorTable: React.FC<VendorTableProps> = ({ trigger }) => {
                 </TableHead>
                 <TableBody>
                     {vendors.map((vendor) => (
-                        <TableRow key={vendor._id}>
+                        <TableRow key={vendor.email}>
                             <TableCell>{vendor.firstName}</TableCell>
                             <TableCell>{vendor.lastName}</TableCell>
                             <TableCell>{vendor.contactNumber}</TableCell>

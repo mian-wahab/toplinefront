@@ -10,7 +10,7 @@ import SpringModal from '@/components/modal';
 import { VendorManagement } from '@/components/vendors/Vendor';
 import { Vendor, VendorsTable } from '@/components/dashboard/customer/vendors-table';
 import { VendorsFilters } from '@/components/dashboard/customer/vendors-filters';
-import { DeleteVendor, GetVendors, ActivateVendor, DisableVendor } from '@/service';
+import { DeleteVendor, GetVendors } from '@/service';
 import { ToastType } from '@/contexts/enums';
 import { useUser } from '@/hooks/use-user';
 import CircularIndeterminate from '@/components/spinner/MuiSpinner';
@@ -59,46 +59,46 @@ export default function Page(): React.JSX.Element {
   }, []);
 
 
-  const handleActivate = async (id: string) => {
-    setInprogress(true);
-    try {
-      // Example API call to activate vendor
-      const response = await ActivateVendor(id);
-      if (response?.error) {
-        toast.setToast({ isOpen: true, message: response.error, type: ToastType.ERROR });
-      } else {
-        toast.setToast({ isOpen: true, message: 'Vendor activated successfully.', type: ToastType.SUCCESS });
-        getVendors();
-      }
-    } catch (error) {
-      toast.setToast({ isOpen: true, message: 'Failed to activate vendor.', type: ToastType.ERROR });
-    } finally {
-      setInprogress(false);
-    }
-  };
+  // const handleActivate = async (id: string) => {
+  //   setInprogress(true);
+  //   try {
+  //     // Example API call to activate vendor
+  //     const response = await ActivateVendor(id);
+  //     if (response?.error) {
+  //       toast.setToast({ isOpen: true, message: response.error, type: ToastType.ERROR });
+  //     } else {
+  //       toast.setToast({ isOpen: true, message: 'Vendor activated successfully.', type: ToastType.SUCCESS });
+  //       getVendors();
+  //     }
+  //   } catch (error) {
+  //     toast.setToast({ isOpen: true, message: 'Failed to activate vendor.', type: ToastType.ERROR });
+  //   } finally {
+  //     setInprogress(false);
+  //   }
+  // };
   
-  const handleDisable = async (id: string) => {
-    setInprogress(true);
-    try {
-      // Example API call to disable vendor
-      const response = await DisableVendor(id); // Replace with your actual API call
-      if (response?.error) {
-        toast.setToast({ isOpen: true, message: response.error, type: ToastType.ERROR });
-      } else {
-        toast.setToast({ isOpen: true, message: 'Vendor disabled successfully.', type: ToastType.SUCCESS });
-        getVendors();
-      }
-    } catch (error) {
-      toast.setToast({ isOpen: true, message: 'Failed to disable vendor.', type: ToastType.ERROR });
-    } finally {
-      setInprogress(false);
-    }
-  };
+  // const handleDisable = async (id: string) => {
+  //   setInprogress(true);
+  //   try {
+  //     // Example API call to disable vendor
+  //     const response = await DisableVendor(id); // Replace with your actual API call
+  //     if (response?.error) {
+  //       toast.setToast({ isOpen: true, message: response.error, type: ToastType.ERROR });
+  //     } else {
+  //       toast.setToast({ isOpen: true, message: 'Vendor disabled successfully.', type: ToastType.SUCCESS });
+  //       getVendors();
+  //     }
+  //   } catch (error) {
+  //     toast.setToast({ isOpen: true, message: 'Failed to disable vendor.', type: ToastType.ERROR });
+  //   } finally {
+  //     setInprogress(false);
+  //   }
+  // };
 
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (email: string) => {
     setInprogress(true);
-    const vendor = await DeleteVendor(id);
+    const vendor = await DeleteVendor(email);
     if (vendor?.error) {
       setInprogress(false);
       return toast.setToast({ isOpen: true, message: vendor.error, type: ToastType.ERROR });
@@ -131,9 +131,14 @@ export default function Page(): React.JSX.Element {
         rowsPerPage={rowsPerPage}
         setSelectedRow={setSelectedRow}
         setIsOpen={setIsOpen}
-        handleDelete={handleDelete}
-        handleDisable={handleDisable}
-        handleActivate={handleActivate}
+        handleDelete={handleDelete} 
+        handleActivate={function (email: string): Promise<void> {
+          throw new Error('Function not implemented.');
+        } }
+         handleDisable={function (email: string): Promise<void> {
+          throw new Error('Function not implemented.');
+        } }        // handleDisable={handleDisable}
+        // handleActivate={handleActivate}
       />
     </Stack>
   );

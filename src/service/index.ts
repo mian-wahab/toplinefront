@@ -21,16 +21,16 @@ export const AddVendor = async (data: any) => {
     }
     return { vendor: null, error: vendor.message as string };
 }
-export const ActivateVendor = async (id: string) => {
-    const response = await put(`${routes.dashboard.vendor.activateVendor}/${id}`, {});
+export const ActivateVendor = async (email: string) => {
+    const response = await put(`${routes.dashboard.vendor.activateVendor}/${email}`, {});
     if (response.status) {
         return { vendor: response.data, error: null };
     }
     return { vendor: null, error: response.message as string };
 };
 
-export const DisableVendor = async (id: string) => {
-    const response = await put(`${routes.dashboard.vendor.disableVendor}/${id}`, {});
+export const DisableVendor = async (email: string) => {
+    const response = await put(`${routes.dashboard.vendor.disableVendor}/${email}`, {});
     if (response.status) {
         return { vendor: response.data, error: null };
     }
@@ -43,8 +43,8 @@ export const EditVendor = async (data: any) => {
     }
     return { vendor: null, error: vendor.message as string };
 }
-export const UpdateVendor = async (id: string, data: any) => {
-    const vendor = await put(`${routes.dashboard.vendor.updateVendor}/${id}`, data);
+export const UpdateVendor = async (email: string, data: any) => {
+    const vendor = await put(`${routes.dashboard.vendor.updateVendor}/${email}`, data);
     if (vendor.status) {
         return { vendor: vendor.data, message: vendor?.message, error: null };
     }
@@ -57,8 +57,8 @@ export const GetVendors = async () => {
     }
     return { vendors: null, error: vendors.message as string };
 }
-export const  DeleteVendor = async (id: string) => {   
-    const vendor = await del(`${routes.dashboard.vendor.deleteVendor}/${id}`);
+export const  DeleteVendor = async (email: string) => {   
+    const vendor = await del(`${routes.dashboard.vendor.deleteVendor}/${email}`);
     if (vendor.status) {
         return { vendor: vendor.data, error: null };
     }
@@ -82,15 +82,15 @@ export const AddNewFtp = async (data: any) => {
     }
     return { ftp: null, error: ftp.message as string };
 }
-export const UpdateFtp = async (id: string, data: any) => {
-    const ftp = await put(`${routes.dashboard.ftp.updateFtp}/${id}`, data);
+export const UpdateFtp = async (email: string, data: any) => {
+    const ftp = await put(`${routes.dashboard.ftp.updateFtp}/${email}`, data);
     if (ftp.status) {
         return { vendor: ftp.data, message: ftp?.message, error: null };
     }
     return { ftp: null, error: ftp.message as string };
 }
-export const DeleteFtp = async (id: string) => {
-    const ftp = await del(`${routes.dashboard.ftp.deleteFtp}/${id}`);
+export const DeleteFtp = async (email: string) => {
+    const ftp = await del(`${routes.dashboard.ftp.deleteFtp}/${email}`);
     if (ftp.status) {
         return { vendor: ftp.data, error: null };
     }
@@ -105,4 +105,18 @@ export const GetAllConvertedFiles = async () => {
         return { files: files.data as any, error: null };
     }
     return { files: null, error: files.message as string };
+}
+export const getAllConvertedFilesLogs = async () => {
+    const files = await get(routes.dashboard.convert.getAllConvertedFilesLogs);
+    if (files.status) {
+        return { files: files.data as any, error: null };
+    }
+    return { files: null, error: files.message as string };
+}
+export const getAllFileLogs = async () => {
+    const logs = await get(routes.dashboard.logs.getAllFileLogs);
+    if (logs.status) {
+        return { files: logs.data as any, error: null };
+    }
+    return { files: null, error: logs.message as string };
 }

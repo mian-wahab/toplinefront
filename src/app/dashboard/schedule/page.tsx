@@ -6,15 +6,39 @@ import { formatISO } from 'date-fns'; // To help format date and time in ISO
 import { Ftp } from '@/components/dashboard/ftp/ftps-table';
 import { createCron } from '@/service/schedule/createCron';
 import { GetFtps } from '@/service';
+import { useUser } from '@/hooks/use-user';
+import { FtpTables } from '@/components/dashboard/ftp/ftps-table';
+import { FtpsFilters } from '@/components/dashboard/ftp/ftps-filters';
+import { DeleteFtp, GetVendors } from '@/service';
+import { VendorManagement } from '@/components/vendors/Vendor';
+// import { Vendor } from '@/components/dashboard/customer/vendors-table';
+
+
+interface Vendor {
+  id:string;
+  firstName: string;
+  lastName:string;
+  contactNumber:boolean;
+  email: string;
+  companyName: string;
+  companyAddress: string;
+  createdAt:string;
+  role: string;
+  logs:string;
+  jobStatus:string;
+}
+
+
 
 export default function Page(): React.JSX.Element {
   const [ftps, setFtps] = React.useState<Ftp[]>([]);
   const [open, setOpen] = React.useState(false);
   const [selectedFtp, setSelectedFtp] = React.useState<Ftp | null>(null);
   const [operations, setOperations] = React.useState('download');
-  const [schedule, setSchedule] = React.useState(''); // Store ISO formatted schedule
-  const [selectedDate, setSelectedDate] = React.useState(''); // Store selected date
-  const [selectedTime, setSelectedTime] = React.useState(''); // Store selected time
+  const [schedule, setSchedule] = React.useState(''); 
+
+  const [selectedDate, setSelectedDate] = React.useState(''); 
+  const [selectedTime, setSelectedTime] = React.useState(''); 
 
   const page = 0;
   const rowsPerPage = 10;
@@ -29,6 +53,7 @@ export default function Page(): React.JSX.Element {
   };
 
   React.useEffect(() => {
+    GetVendors();
     getFtps();
   }, []);
 
@@ -65,6 +90,36 @@ export default function Page(): React.JSX.Element {
   //     setSelectedTime('');
   //   }
   // };
+  // const handleSubmitCronJob = async () => {
+  //   if (!selectedFtp || !operations || !selectedDate || !selectedTime) {
+  //     alert("Please fill in all fields");
+  //     return;
+  //   }
+  
+  //   const combinedDateTime = new Date(`${selectedDate}T${selectedTime}`);
+  //   const isoSchedule = combinedDateTime.toISOString();
+  
+  //   setSchedule(isoSchedule);
+  
+  //   try {
+  //     const response = await createCron({
+  //       ftpId: selectedFtp._id,
+  //       operations,
+  //       schedule: isoSchedule,
+  //     });
+  
+  //     if (response?.statusText && response.statusText !== 'Created') {
+  //       setOpen(false); // Close the modal
+  //       setSelectedDate(""); // Reset the date
+  //       setSelectedTime(""); // Reset the time
+  //     } else {
+  //       alert(`Error creating cron job: ${response.statusText || response.message}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating cron job:", error);
+  //     alert("An unexpected error occurred");
+  //   }
+  // };
   const handleSubmitCronJob = async () => {
     if (!selectedFtp || !operations || !selectedDate || !selectedTime) {
       alert("Please fill in all fields");
@@ -83,7 +138,7 @@ export default function Page(): React.JSX.Element {
         schedule: isoSchedule,
       });
   
-      if (response?.statusText && response.statusText !== 'Created') {
+      if (response?.statusText === 'Created') {
         setOpen(false); // Close the modal
         setSelectedDate(""); // Reset the date
         setSelectedTime(""); // Reset the time
@@ -97,32 +152,31 @@ export default function Page(): React.JSX.Element {
   };
   
   
+  
 
   return (
     <Stack spacing={3}>
       <Typography variant="h4">Matrix</Typography>
 
-      {/* FTP Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell> Full Name</TableCell>
+              <TableCell> User Name</TableCell>
               <TableCell>  Company name</TableCell>
               <TableCell>Host</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Logs</TableCell>
               <TableCell>Actions</TableCell>
+              <TableCell>Logs</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedFtps.map((ftp) => (
               <TableRow key={ftp._id}>
                 <TableCell>{ftp.ftpUser}</TableCell>
-                <TableCell>{ftp.user?.companyName}</TableCell>
+                <TableCell>{ftp?.user?.companyName}</TableCell>
                 <TableCell>{ftp.host}</TableCell>
-                <TableCell></TableCell>
-                
+                <TableCell></TableCell>    
                 <TableCell>
                   <Button variant="contained" color="primary" onClick={() => handleCreateCron(ftp)}>
                     Create Cron Job

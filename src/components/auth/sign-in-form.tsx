@@ -22,6 +22,7 @@ import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useUser } from '@/hooks/use-user';
 import { User } from '@/types/user';
+import { fontSize } from '@mui/system';
 
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
@@ -66,9 +67,9 @@ export function SignInForm(): React.JSX.Element {
   );
 
   return (
-    <Stack className='customsign' spacing={4}>
+    <Stack className='customsign' spacing={4} style={{ margin: "10px 0px"}}>
       <Stack spacing={1}>
-        <Typography variant="h4">Sign in</Typography>
+        <Typography variant="h4" style={{fontSize: "40px", textAlign: "center", lineHeight: "10px", fontWeight: "400", margin:"30px 0px 0px 0px"}}>Sign in</Typography>
         {/* <Typography color="text.secondary" variant="body2">
           Don&apos;t have an account?{' '}
           <Link component={RouterLink} href={paths.auth.signUp} underline="hover" variant="subtitle2">
@@ -77,15 +78,15 @@ export function SignInForm(): React.JSX.Element {
         </Typography> */}
       </Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
+        <Stack style={{borderColor: "#ffffff", outlineColor: "#ffffff"}} spacing={2}>
           <Controller
-            control={control}
+            control={control} 
             name="email"
             render={({ field }) => (
-              <FormControl error={Boolean(errors.email)}>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput {...field} label="Email address" type="email" />
-                {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
+              <FormControl style={{borderColor: "#ffffff", border:"0px", outlineColor: "#ffffff"}} error={Boolean(errors.email)}>
+                <InputLabel style={{color: "#ffffff"}}>Email address</InputLabel>
+                <OutlinedInput style={{borderColor: "#ffffff",color: "#ffffff", outlineColor: "#ffffff" }} {...field} label="Email address" type="email" />
+                {errors.email ? <FormHelperText style={{borderColor: "#ffffff"}}>{errors.email.message}</FormHelperText> : null}
               </FormControl>
             )}
           />
@@ -94,8 +95,8 @@ export function SignInForm(): React.JSX.Element {
             name="password"
             render={({ field }) => (
               <FormControl error={Boolean(errors.password)}>
-                <InputLabel>Password</InputLabel>
-                <OutlinedInput
+                <InputLabel style={{color: "#ffffff"}}>Password</InputLabel>
+                <OutlinedInput style={{borderColor: "#ffffff",color: "#ffffff", outlineColor: "#ffffff"}}
                   {...field}
                   endAdornment={
                     showPassword ? (
@@ -124,12 +125,17 @@ export function SignInForm(): React.JSX.Element {
             )}
           />
           <div>
-            <Link component={RouterLink} href={paths.auth.resetPassword} variant="subtitle2">
+            <Link style={{color: "#ffffff"}} component={RouterLink} href={paths.auth.resetPassword} variant="subtitle2">
               Forgot password?
             </Link>
           </div>
           {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
-          <Button className='customsingin' disabled={isPending} type="submit" variant="contained">
+          <Button style={{background: "white",
+    color: "#603e7a",
+    fontSize: "20px",
+    fontWeight: 600,
+    paddingTop: "5px",
+    paddingBottom: "5px"}} className='customsingin' disabled={isPending} type="submit" variant="contained">
             Sign in
           </Button>
         </Stack> 
